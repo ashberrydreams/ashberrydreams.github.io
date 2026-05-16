@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashberry Dreams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Crimson+Pro:ital,wght@0,200;0,300;1,200;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0b0f;
+    --bg2: #13101a;
+    --surface: #1a1525;
+    --border: #2a2035;
+    --accent: #8b4a6b;
+    --accent2: #c47a9b;
+    --ash: #a08090;
+    --text: #d4c8d0;
+    --text-dim: #7a6878;
+    --text-faint: #3d3040;
+    --berry: #6b2a4a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-weight: 200;
+    font-size: 18px;
+    line-height: 1.8;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Фоновая текстура */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 20%, rgba(107,42,74,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 80% 80%, rgba(139,74,107,0.08) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Шапка */
+  header {
+    position: relative;
+    z-index: 10;
+    padding: 60px 40px 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .site-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 0.08em;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .site-title span {
+    color: var(--accent2);
+    font-style: italic;
+  }
+
+  .site-subtitle {
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 300;
+    padding-bottom: 4px;
+  }
+
+  /* Навигация */
+  nav {
+    position: relative;
+    z-index: 10;
+    padding: 0 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  nav button {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-family: 'Crimson Pro', serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 16px 24px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  nav button:hover { color: var(--text); }
+  nav button.active {
+    color: var(--accent2);
+    border-bottom-color: var(--accent2);
+  }
+
+  /* Основная сетка */
+  .layout {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: calc(100vh - 160px);
+  }
+
+  /* Боковая панель */
+  aside {
+    border-right: 1px solid var(--border);
+    padding: 32px 0;
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 160px);
+    overflow-y: auto;
+  }
+
+  aside::-webkit-scrollbar { width: 3px; }
+  aside::-webkit-scrollbar-track { background: transparent; }
+  aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .aside-section {
+    margin-bottom: 32px;
+  }
+
+  .aside-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    padding: 0 28px 12px;
+    display: block;
+  }
+
+  .poem-link {
+    display: block;
+    padding: 10px 28px;
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--text-dim);
+    font-style: italic;
+    border-left: 2px solid transparent;
+    transition: all 0.25s ease;
+    line-height: 1.4;
+  }
+
+  .poem-link:hover {
+    color: var(--text);
+    border-left-color: var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .poem-link.active {
+    color: var(--accent2);
+    border-left-color: var(--accent);
+    background: rgba(139,74,107,0.06);
+  }
+
+  .poem-date {
+    display: block;
+    font-size: 11px;
+    font-style: normal;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+
+  /* Главная область */
+  main {
+    padding: 0;
+  }
+
+  /* Обложка */
+  .cover {
+    padding: 80px 80px 60px;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cover-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.5;
+    max-width: 600px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.3s forwards;
+  }
+
+  .cover-meta {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.6s forwards;
+  }
+
+  .cover-line {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 24px 0;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.9s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Просмотр стихотворения */
+  .poem-view {
+    display: none;
+    padding: 60px 80px;
+    max-width: 700px;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .poem-view.visible { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .poem-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .poem-meta {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 48px;
+  }
+
+  .poem-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin-bottom: 48px;
+  }
+
+  .poem-body {
+    font-size: 18px;
+    line-height: 2;
+    color: var(--text);
+    white-space: pre-wrap;
+    font-weight: 200;
+  }
+
+  .poem-body .stanza {
+    margin-bottom: 1.5em;
+  }
+
+  .poem-author {
+    margin-top: 48px;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  /* Список стихов (режим просмотра всех) */
+  .poems-grid {
+    display: none;
+    padding: 40px 60px;
+  }
+
+  .poems-grid.visible { display: block; }
+
+  .poem-card {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .poem-card:hover .poem-card-title { color: var(--accent2); }
+
+  .poem-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 8px;
+    transition: color 0.25s ease;
+  }
+
+  .poem-card-date {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .poem-card-preview {
+    font-size: 16px;
+    color: var(--text-dim);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  /* Мобильный */
+  @media (max-width: 768px) {
+    header { padding: 40px 24px 28px; flex-direction: column; align-items: flex-start; }
+    nav { padding: 0 24px; }
+    .layout { grid-template-columns: 1fr; }
+    aside { display: none; }
+    .cover, .poem-view { padding: 40px 28px; }
+    .poems-grid { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1 class="site-title">Ashberry <span>Dreams</span></h1>
+  </div>
+  <div class="site-subtitle">William van Warg &nbsp;·&nbsp; стихи</div>
+</header>
+
+<nav>
+  <button class="active" onclick="showView('home')">главная</button>
+  <button onclick="showView('all')">все стихи</button>
+</nav>
+
+<div class="layout">
+  <aside id="sidebar">
+    <div class="aside-section">
+      <span class="aside-label">стихи</span>
+      <div id="sidebar-list"></div>
+    </div>
+  </aside>
+
+  <main>
+    <!-- Обложка -->
+    <div class="cover" id="view-home">
+      <div class="cover-quote" id="random-quote"></div>
+      <div class="cover-line"></div>
+      <div class="cover-meta">William van Warg &nbsp;·&nbsp; ashberry dreams</div>
+    </div>
+
+    <!-- Просмотр одного стихотворения -->
+    <div class="poem-view" id="view-poem">
+      <h2 class="poem-title" id="poem-title"></h2>
+      <div class="poem-meta" id="poem-date"></div>
+      <div class="poem-divider"></div>
+      <div class="poem-body" id="poem-body"></div>
+      <div class="poem-author">© William van Warg</div>
+    </div>
+
+    <!-- Список всех -->
+    <div class="poems-grid" id="view-all">
+      <div id="all-list"></div>
+    </div>
+  </main>
+</div>
+
+<script>
+// =============================================
+// СТИХИ — добавляй сюда свои
+// =============================================
+const poems = [
+  {
+    title: "Зацвела",
+    date: "07.02.2026",
+    text: `Красным светом зажжётся фонарь,
+Вновь по радио будут помехи,
+Ты посмотришь тоскливо в январь,
+Проклиная былые успехи,
+Звёзды будут светить каждый день,
+По ночам отсыпаясь на лето,
+Где-то там, в другой жизни сирень,
+Зацвела...
+Но без нас в этом «где-то»...`
+  },
+  {
+    title: "Не я",
+    date: "16.12.2025",
+    text: `Тычет в небо шпилем,
+Мне чужой костёл,
+Ветер тёплым штилем,
+Дразнит мой костёр,
+
+Город пахнет жаждой,
+Звёзды рвут края,
+Я клянусь им, каждой,
+Это был не я...`
+  },
+  {
+    title: "Лепесток",
+    date: "14.12.2025",
+    text: `Лети, лети лепесток,
+Через запад, на восток,
+Через север, через юг,
+Через вереницу вьюг,
+Через ночи без огня,
+Сквозь такого же меня,
+Сквозь небесную ваниль,
+Через прах, и через пыль.
+
+Улетая ты кружись,
+Уноси проблемы ввысь,
+Прогоняй мою печаль,
+За Луну, куда-то вдаль,
+Мимо звёздной пустоты,
+Где во тьме поют киты,
+Возвращайся, сделав круг,
+Словно самый верный друг.
+
+Будь со мною заодно,
+Пусть внутри кипит вино,
+Проглоти весь мой неон,
+Шумных улиц тихий стон,
+Облети застывший мир,
+Среди пленников квартир,
+А коснёшься ты земли,
+Быть по-моему вели.`
+  },
+  {
+    title: "Такие хрупкие мечты",
+    date: "13.05.2026",
+    text: `Я ветром стал в твоих глазах,
+Расстался с небом на пороге,
+И в бесконечной снов тревоге,
+Себя перетираю в прах,
+Я вырвал суть из поднебесной,
+Такой большой и неизвестной,
+Но снова душит вечный страх...
+Так сложно удержать в руках,
+Весь холод правящей весны,
+Что напрочь сковывает тело,
+Когда сквозь душу, неумело,
+Вся правда рвётся через сны,
+А горький дым, целуя пальцы,
+В себя вплетает через танцы,
+Такие хрупкие мечты...`
+  },
+];
+// =============================================
+
+function buildSidebar() {
+  const list = document.getElementById('sidebar-list');
+  list.innerHTML = '';
+  poems.forEach((p, i) => {
+    const a = document.createElement('div');
+    a.className = 'poem-link';
+    a.dataset.index = i;
+    a.innerHTML = `<span>${p.title}</span><span class="poem-date">${p.date}</span>`;
+    a.onclick = () => showPoem(i);
+    list.appendChild(a);
+  });
+}
+
+function buildAllList() {
+  const list = document.getElementById('all-list');
+  list.innerHTML = '';
+  poems.forEach((p, i) => {
+    const lines = p.text.split('\n').filter(l => l.trim());
+    const preview = lines.slice(0, 3).join('\n');
+    const card = document.createElement('div');
+    card.className = 'poem-card';
+    card.innerHTML = `
+      <div class="poem-card-title">${p.title}</div>
+      <div class="poem-card-date">${p.date}</div>
+      <div class="poem-card-preview">${preview}...</div>
+    `;
+    card.onclick = () => showPoem(i);
+    list.appendChild(card);
+  });
+}
+
+function setRandomQuote() {
+  const p = poems[Math.floor(Math.random() * poems.length)];
+  const lines = p.text.split('\n').filter(l => l.trim());
+  const start = Math.floor(Math.random() * Math.max(1, lines.length - 3));
+  const quote = lines.slice(start, start + 4).join('\n');
+  document.getElementById('random-quote').textContent = `«\u00A0${quote}\u00A0»`;
+}
+
+function showView(view) {
+  document.getElementById('view-home').style.display = 'none';
+  document.getElementById('view-poem').classList.remove('visible');
+  document.getElementById('view-all').classList.remove('visible');
+
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+
+  if (view === 'home') {
+    document.getElementById('view-home').style.display = 'flex';
+    document.querySelector('nav button:nth-child(1)').classList.add('active');
+    setRandomQuote();
+  } else if (view === 'all') {
+    buildAllList();
+    document.getElementById('view-all').classList.add('visible');
+    document.querySelector('nav button:nth-child(2)').classList.add('active');
+  }
+
+  document.querySelectorAll('.poem-link').forEach(l => l.classList.remove('active'));
+}
+
+function showPoem(index) {
+  const p = poems[index];
+  document.getElementById('poem-title').textContent = `«\u00A0${p.title}\u00A0»`;
+  document.getElementById('poem-date').textContent = p.date;
+
+  // Разбиваем на строфы
+  const stanzas = p.text.split('\n\n');
+  const bodyEl = document.getElementById('poem-body');
+  bodyEl.innerHTML = stanzas.map(s =>
+    `<div class="stanza">${s.split('\n').join('<br>')}</div>`
+  ).join('');
+
+  document.getElementById('view-home').style.display = 'none';
+  document.getElementById('view-all').classList.remove('visible');
+  document.getElementById('view-poem').classList.add('visible');
+
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.poem-link').forEach((l, i) => {
+    l.classList.toggle('active', i === index);
+  });
+
+  window.scrollTo(0, 0);
+}
+
+// Инициализация
+buildSidebar();
+setRandomQuote();
+</script>
+</body>
+</html>
