@@ -262,10 +262,9 @@
   }
 
   .poem-meta {
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-faint);
+    font-size: 15px;
+    letter-spacing: 0.15em;
+    color: var(--ash);
     margin-bottom: 48px;
   }
 
@@ -290,9 +289,9 @@
 
   .poem-author {
     margin-top: 48px;
-    font-size: 13px;
-    letter-spacing: 0.2em;
-    color: var(--text-dim);
+    font-size: 16px;
+    letter-spacing: 0.15em;
+    color: var(--ash);
     font-style: italic;
   }
 
@@ -482,7 +481,17 @@ function showPoem(index) {
   window.scrollTo(0, 0);
 }
 
-// Инициализация
+// Сортировка: новые сверху
+function parseDate(str) {
+  if (!str) return 0;
+  const m = str.match(/(\d{2})\.(\d{2})\.(\d{2,4})/);
+  if (!m) return 0;
+  let y = parseInt(m[3]);
+  if (y < 100) y += 2000;
+  return new Date(y, parseInt(m[2])-1, parseInt(m[1])).getTime();
+}
+poems.sort((a, b) => parseDate(b.date) - parseDate(a.date));
+
 buildSidebar();
 setRandomQuote();
 </script>
