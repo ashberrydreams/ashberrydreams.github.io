@@ -452,8 +452,9 @@ function setRandomQuote() {
   const pool = recent.length > 0 ? recent : poems;
   const p = pool[Math.floor(Math.random() * pool.length)];
   const lines = p.text.split('\n').filter(l => l.trim());
-  const quote = lines.slice(0, 4).join('\n');
-  document.getElementById('random-quote').textContent = `«\u00A0${quote}\u00A0»`;
+  const quoteLines = lines.slice(0, 4);
+  const el = document.getElementById('random-quote');
+  el.innerHTML = '«\u00A0' + quoteLines.join('<br>') + '\u00A0»';
 }
 
 function showView(view) {
