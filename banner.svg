@@ -16,7 +16,7 @@
 <text x="80" y="360" font-family="Georgia, serif" font-size="96" font-style="italic" font-weight="300" fill="#c47a9b" letter-spacing="6">Dreams</text>
 
 <!-- Подзаголовок -->
-<text x="80" y="420" font-family="Georgia, serif" font-size="22" font-weight="300" fill="#a08090" letter-spacing="8">WILLIAM VAN WARG  ·  СТИХИ</text>
+<text x="80" y="420" font-family="Georgia, serif" font-size="22" font-weight="300" fill="#a08090" letter-spacing="8">WILLIAM VAN WARG  ·  POETRY</text>
 
 <!-- Адрес сайта -->
 <text x="80" y="560" font-family="Georgia, serif" font-size="18" fill="#3d3040" letter-spacing="4">ashberrydreams.github.io</text>
