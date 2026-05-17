@@ -450,16 +450,16 @@ function setRandomQuote() {
     return y >= 2021 && y <= 2026;
   });
   const pool = recent.length > 0 ? recent : poems;
-  const pool = recent.length > 0 ? recent : poems;
   const randomIdx = Math.floor(Math.random() * pool.length);
   const p = pool[randomIdx];
+  const poemIdx = poems.findIndex(x => x.title === p.title && x.date === p.date);
   const lines = p.text.split('\n').filter(l => l.trim());
   const quoteLines = lines.slice(0, 4);
   const el = document.getElementById('random-quote');
   el.innerHTML = '«\u00A0' + quoteLines.join('<br>') + '\u00A0»';
-  const poemIdx = poems.indexOf(p);
   el.style.cursor = 'pointer';
-  el.onclick = () => showPoem(poemIdx);
+  el.onclick = null;
+  el.onclick = function() { showPoem(poemIdx); };
 }
 
 function showView(view) {
