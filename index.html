@@ -455,6 +455,9 @@ function setRandomQuote() {
   const quoteLines = lines.slice(0, 4);
   const el = document.getElementById('random-quote');
   el.innerHTML = '«\u00A0' + quoteLines.join('<br>') + '\u00A0»';
+  const idx = poems.indexOf(p);
+  el.style.cursor = 'pointer';
+  el.onclick = () => showPoem(idx);
 }
 
 function showView(view) {
