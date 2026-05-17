@@ -1,0 +1,32 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Ashberry Dreams — William van Warg</title>
+<desc>Баннер сайта со стихами William van Warg</desc>
+
+<rect width="1200" height="630" fill="#0d0b0f"/>
+
+<!-- Фоновые пятна -->
+<ellipse cx="240" cy="200" rx="420" ry="320" fill="#6b2a4a" opacity="0.18"/>
+<ellipse cx="980" cy="480" rx="360" ry="280" fill="#8b4a6b" opacity="0.12"/>
+
+<!-- Тонкая линия снизу заголовка -->
+<line x1="80" y1="370" x2="220" y2="370" stroke="#8b4a6b" stroke-width="2"/>
+
+<!-- Главный заголовок -->
+<text x="80" y="280" font-family="Georgia, serif" font-size="96" font-weight="300" fill="#d4c8d0" letter-spacing="6">Ashberry</text>
+<text x="80" y="360" font-family="Georgia, serif" font-size="96" font-style="italic" font-weight="300" fill="#c47a9b" letter-spacing="6">Dreams</text>
+
+<!-- Подзаголовок -->
+<text x="80" y="420" font-family="Georgia, serif" font-size="22" font-weight="300" fill="#a08090" letter-spacing="8">WILLIAM VAN WARG  ·  СТИХИ</text>
+
+<!-- Адрес сайта -->
+<text x="80" y="560" font-family="Georgia, serif" font-size="18" fill="#3d3040" letter-spacing="4">ashberrydreams.github.io</text>
+
+<!-- Декоративные точки справа -->
+<circle cx="1050" cy="180" r="2" fill="#8b4a6b" opacity="0.6"/>
+<circle cx="1080" cy="210" r="1.5" fill="#8b4a6b" opacity="0.4"/>
+<circle cx="1020" cy="220" r="1" fill="#8b4a6b" opacity="0.3"/>
+<circle cx="1100" cy="160" r="1" fill="#c47a9b" opacity="0.3"/>
+<circle cx="1060" cy="250" r="2.5" fill="#6b2a4a" opacity="0.5"/>
+<circle cx="1090" cy="280" r="1.5" fill="#8b4a6b" opacity="0.3"/>
+<circle cx="1030" cy="300" r="1" fill="#c47a9b" opacity="0.2"/>
+</svg>
