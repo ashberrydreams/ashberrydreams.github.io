@@ -360,6 +360,7 @@
 <nav>
   <button class="active" onclick="showView('home')">главная</button>
   <button onclick="showView('all')">все стихи</button>
+  <button onclick="showView('about')">об авторе</button>
 </nav>
 
 <div class="layout">
@@ -390,6 +391,19 @@
     <!-- Список всех -->
     <div class="poems-grid" id="view-all">
       <div id="all-list"></div>
+    </div>
+
+    <!-- Об авторе -->
+    <div class="poem-view" id="view-about">
+      <h2 class="poem-title">Об авторе</h2>
+      <div class="poem-divider"></div>
+      <div class="poem-body" style="font-style:normal; line-height:2;">
+        <p>Всем привет,</p>
+        <br>
+        <p>Меня зовут Старинский Сергей. Я пишу стихи больше пятнадцати лет под псевдонимом William van Warg. Этот сайт — мой репозиторий для творчества, которое я хочу сохранить в сети. Здесь будет всё: от подростковых нескладных попыток в оригинальность до того, что нравится даже мне.</p>
+        <br>
+        <p>Я назвал этот сайт Ashberry Dreams в честь одного выдуманного города из компьютерной игры, где мне нравилось прозябать часами в детстве. Потом хотел назвать так музыкальную группу, которую не собрал... сборник поэзии, который не выпустил... И вот мы здесь — в этом уголке, где я оставляю частичку своей души на, надеюсь, вечное хранение в бесконечной мировой паутине.</p>
+      </div>
     </div>
   </main>
 </div>
@@ -448,6 +462,7 @@ function showView(view) {
   document.getElementById('view-home').style.display = 'none';
   document.getElementById('view-poem').classList.remove('visible');
   document.getElementById('view-all').classList.remove('visible');
+  document.getElementById('view-about').classList.remove('visible');
 
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
 
@@ -459,6 +474,9 @@ function showView(view) {
     buildAllList();
     document.getElementById('view-all').classList.add('visible');
     document.querySelector('nav button:nth-child(2)').classList.add('active');
+  } else if (view === 'about') {
+    document.getElementById('view-about').classList.add('visible');
+    document.querySelector('nav button:nth-child(3)').classList.add('active');
   }
 
   document.querySelectorAll('.poem-link').forEach(l => l.classList.remove('active'));
