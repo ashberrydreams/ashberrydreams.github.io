@@ -470,7 +470,7 @@ function setRandomQuote() {
   el.onclick = function() { showPoem(poemIdx); };
 }
 
-function showView(view) {
+function showView(view, pushState = true) {
   document.getElementById('view-home').style.display = 'none';
   document.getElementById('view-poem').classList.remove('visible');
   document.getElementById('view-all').classList.remove('visible');
@@ -492,14 +492,14 @@ function showView(view) {
   }
 
   document.querySelectorAll('.poem-link').forEach(l => l.classList.remove('active'));
+  if (pushState) history.pushState({ view }, '', '#' + view);
 }
 
-function showPoem(index) {
+function showPoem(index, pushState = true) {
   const p = poems[index];
   document.getElementById('poem-title').textContent = `«\u00A0${p.title}\u00A0»`;
   document.getElementById('poem-date').textContent = p.date;
 
-  // Разбиваем на строфы
   const stanzas = p.text.split('\n\n');
   const bodyEl = document.getElementById('poem-body');
   bodyEl.innerHTML = stanzas.map(s =>
@@ -508,6 +508,7 @@ function showPoem(index) {
 
   document.getElementById('view-home').style.display = 'none';
   document.getElementById('view-all').classList.remove('visible');
+  document.getElementById('view-about').classList.remove('visible');
   document.getElementById('view-poem').classList.add('visible');
 
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
@@ -516,7 +517,21 @@ function showPoem(index) {
   });
 
   window.scrollTo(0, 0);
+  if (pushState) history.pushState({ poem: index }, '', '#poem-' + index);
 }
+
+// Обработка кнопки "назад"
+window.addEventListener('popstate', function(e) {
+  if (!e.state) {
+    showView('home', false);
+  } else if (e.state.poem !== undefined) {
+    showPoem(e.state.poem, false);
+  } else if (e.state.view) {
+    showView(e.state.view, false);
+  } else {
+    showView('home', false);
+  }
+});
 
 // Сортировка: новые сверху
 function parseDate(str) {
